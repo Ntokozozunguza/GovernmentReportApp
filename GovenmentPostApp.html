@@ -1,0 +1,557 @@
+GovernmentApp 
+
+GitHub post 2
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Name</title>
+    <style>
+        /* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #e8f0f2;
+    color: #333;
+    transition: opacity 0.3s ease;
+    overflow: hidden;
+}
+
+#login-page, #main-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+}
+
+#login-page {
+    justify-content: center;
+    background: #e8f0f2;
+}
+
+.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.login-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    background: #00796b;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-container a {
+    display: block;
+    margin-top: 10px;
+    color: #00796b;
+    text-decoration: none;
+}
+
+/* Main Page Styles */
+#main-page {
+    display: none;
+}
+
+nav {
+    background: #00796b;
+    color: #fff;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.burger-menu {
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.title {
+    font-size: 20px;
+    margin-left: 20px;
+    flex: 1;
+}
+
+aside {
+    background: #333;
+    color: #fff;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+aside.visible {
+    transform: translateX(0);
+    left: 0;
+}
+
+.close-btn {
+    background: #d32f2f;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+aside a {
+    display: block;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    background: #444;
+}
+
+aside a:hover {
+    background: #555;
+}
+
+.profile-info {
+    margin-top: 20px;
+}
+
+.profile-info h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#reported-issues {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#reported-issues li {
+    margin: 10px 0;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.status.resolved {
+    color: green;
+}
+
+.status.ongoing {
+    color: orange;
+}
+
+.status.not-resolved {
+    color: red;
+}
+
+main {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.banner-ad, .banner-ad2 {
+    background: #f1f1f1;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.search-section {
+    margin-bottom: 20px;
+}
+
+.search-section input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-right: -1px;
+    font-style: italic;
+}
+
+.search-section button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    background: #00796b;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.search-section button:hover {
+    background: #004d40;
+}
+
+.issue-reporting {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.issue-reporting textarea, 
+.issue-reporting input[type="text"], 
+.issue-reporting input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.issue-reporting button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background: #00796b;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.issue-reporting button:hover {
+    background: #004d40;
+}
+
+.issue-reporting p {
+    font-weight: bold;
+}
+
+.report-feed {
+    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#reports {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.report-item {
+    display: inline-block;
+    width: 300px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #fafafa;
+    border-right: 1px solid #ddd;
+    text-align: left;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.report-item:hover {
+    background: #e0e0e0;
+}
+
+.report-item.resolved {
+    border-left: 5px solid green;
+}
+
+.report-item.ongoing {
+    border-left: 5px solid orange;
+}
+
+.report-item.not-resolved {
+    border-left: 5px solid red;
+}
+
+.legend {
+    margin-top: 20px;
+}
+
+.legend h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.legend-item {
+    margin: 5px 0;
+}
+
+.legend-item.resolved::before {
+    content: '• ';
+    color: green;
+}
+
+.legend-item.ongoing::before {
+    content: '• ';
+    color: orange;
+}
+
+.legend-item.not-resolved::before {
+    content: '• ';
+    color: red;
+}
+
+.feedback-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #00796b;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.feedback-btn:hover {
+    background: #004d40;
+}
+
+#alert {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #00796b;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page">
+        <div class="logo">
+            <img src="path/to/logo.png" alt="App Logo">
+        </div>
+        <div class="login-container">
+            <h2>Login</h2>
+            <input type="text" placeholder="Username">
+            <input type="password" placeholder="Password">
+            <button type="button">Login</button>
+            <a href="#">Forgot Password?</a>
+        </div>
+    </div>
+
+    <!-- Main App Page -->
+    <div id="main-page" style="display: none;">
+        <nav>
+            <div class="burger-menu" onclick="toggleMenu()">&#9776;</div>
+            <div class="title">App Name</div>
+        </nav>
+
+        <aside>
+            <button class="close-btn" onclick="toggleMenu()">Close</button>
+            <a href="#" onclick="addLocation()">Add Location Through Google Maps</a>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <div class="profile-info">
+                <h3>User Profile</h3>
+                <ul id="reported-issues">
+                    <li><span class="status resolved">Resolved:</span> Issue 1</li>
+                    <li><span class="status ongoing">Ongoing:</span> Issue 2</li>
+                    <li><span class="status not-resolved">Not Resolved:</span> Issue 3</li>
+                </ul>
+            </div>
+        </aside>
+
+        <main>
+            <section class="banner-ad">
+                <p>Banner Ad Space</p>
+            </section>
+
+            <section class="search-section">
+                <input type="text" placeholder="Search an area e.g. Sandton">
+                <button type="button">Search</button>
+            </section>
+
+            <section class="issue-reporting">
+                <p>Report an Issue:</p>
+                <textarea rows="5" placeholder="Describe the issue..."></textarea>
+                <input type="text" placeholder="Issue title">
+                <input type="text" placeholder="Location">
+                <input type="file" accept="image/*,video/*">
+                <a href="#" onclick="addLocation()">Add Location Through Google Maps</a>
+                <button onclick="submitReport()">Submit Report</button>
+            </section>
+
+            <section class="report-feed">
+                <div id="reports">
+                    <div class="report-item resolved">Resolved Issue 1</div>
+                    <div class="report-item ongoing">Ongoing Issue 2</div>
+                    <div class="report-item not-resolved">Not Resolved Issue 3</div>
+                </div>
+            </section>
+
+            <section class="banner-ad2">
+                <p>Another Banner Ad Space</p>
+            </section>
+
+            <section class="legend">
+                <p>Legend:</p>
+                <p><span class="status resolved">Resolved:</span> Green</p>
+                <p><span class="status ongoing">Ongoing:</span> Orange</p>
+                <p><span class="status not-resolved">Not Resolved:</span> Red</p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Handle login and transition to main page
+document.querySelector('#login-page button').addEventListener('click', function() {
+    const username = document.querySelector('#login-page input[type="text"]').value;
+    const password = document.querySelector('#login-page input[type="password"]').value;
+
+    if (username && password) {
+        // Perform login validation (this is a placeholder)
+        if (username === 'a' && password === 'p') {
+            // Fade out login page and show main page
+            document.querySelector('#login-page').style.opacity = 0;
+            setTimeout(() => {
+                document.querySelector('#login-page').style.display = 'none';
+                document.querySelector('#main-page').style.display = 'flex';
+                document.querySelector('#main-page').style.opacity = 1;
+            }, 300); // Match with fade-out duration
+        } else {
+            alert('Invalid username or password.');
+        }
+    } else {
+        alert('Please enter both username and password.');
+    }
+});
+
+// Toggle the sliding menu
+function toggleMenu() {
+    const aside = document.querySelector('aside');
+    aside.classList.toggle('visible');
+}
+
+// Add location feature placeholder
+function addLocation() {
+    alert("This feature is under development. Please check back later.");
+}
+
+// Submit report feature placeholder
+function submitReport() {
+    const textarea = document.querySelector('.issue-reporting textarea').value;
+    const title = document.querySelector('.issue-reporting input[type="text"]').value;
+    const location = document.querySelector('.issue-reporting input[type="text"]:nth-of-type(2)').value;
+    const file = document.querySelector('.issue-reporting input[type="file"]').files[0];
+
+    if (textarea && title && location) {
+        // Simulate report submission
+        alert("Your report has been submitted. Thank you!");
+        // Optionally, clear the form fields
+        document.querySelector('.issue-reporting textarea').value = '';
+        document.querySelector('.issue-reporting input[type="text"]').value = '';
+        document.querySelector('.issue-reporting input[type="text"]:nth-of-type(2)').value = '';
+        document.querySelector('.issue-reporting input[type="file"]').value = '';
+    } else {
+        alert("Please fill in all required fields.");
+    }
+}
+
+// Send feedback feature placeholder
+function sendFeedback() {
+    alert("Thank you for your feedback!");
+}
+
+// Show alert box with a message
+function showAlert(message) {
+    const alertBox = document.getElementById('alert');
+    alertBox.textContent = message;
+    alertBox.style.display = 'block';
+    setTimeout(() => alertBox.style.display = 'none', 3000);
+}
+
+// Auto-scroll functionality for report feed
+function slideReports() {
+    const reportsContainer = document.getElementById('reports');
+    if (!reportsContainer) return; // Check if reportsContainer exists
+    const maxScrollLeft = reportsContainer.scrollWidth - reportsContainer.clientWidth;
+    if (reportsContainer.scrollLeft < maxScrollLeft) {
+        reportsContainer.scrollBy({ left: 300, behavior: 'smooth' }); // Slide 300px to the left
+    } else {
+        reportsContainer.scrollLeft = 0; // Reset to start
+    }
+}
+
+// Initialize auto-scroll functionality
+let slideInterval = setInterval(slideReports, 1000); // Slide every 1 second
+    </script>
+</body>
+</html>
